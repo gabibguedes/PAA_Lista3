@@ -5,7 +5,7 @@ import {Button, Card, Container, Col, Row} from 'react-bootstrap';
 import Forms from './components/Forms';
 import Result from './components/Result';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 const defaultTime = {
   formatted12: "12:00 pm",
@@ -43,13 +43,12 @@ class App extends Component {
   }
 
   removeFromList(item){
+    this.removeFromUserList(item);
     this.setState({answer: []});
     let index = this.state.activities.findIndex(x => x.id === item.id);
     let copy_arr = this.state.activities;
     copy_arr.splice(index,1);
-    
     this.setState({ activities: copy_arr, answer: []});
-    return this.removeFromUserList(item);
   }
 
   removeFromUserList(item){
@@ -57,8 +56,7 @@ class App extends Component {
     let index = this.state.userList.findIndex(x => x.id === item.id);
     let copy_arr = this.state.userList;
     copy_arr.splice(index,1);
-
-    this.setState({userList: copy_arr, answer: []})
+    this.setState({userList: copy_arr, answer: []});
   }
 
   addToList(){
@@ -115,18 +113,22 @@ class App extends Component {
     if(this.state.activities.length > 0){
       return(
           this.state.activities.map((item) => (
-            <Card key={item.id} style={{padding: '20px', marginBottom: '10px'}}
-              onClick={()=> {this.addToUserList(item)}}>
+            <Card key={item.id} style={{padding: '20px', marginBottom: '10px'}}>
               <Col>
-              <Card.Title>{item.name}</Card.Title>
-              <div style={styles.buttondiv}>
-                <FontAwesomeIcon
-                  icon={faTrash}
-                  style={{ color: 'red', marginLeft: '10px' }}
-                  onClick={() => this.removeFromList(item)}
-                  />
-                  </div>
-                </Col>
+                <Card.Title>{item.name}</Card.Title>
+                <div style={styles.buttondiv}>
+                  <FontAwesomeIcon
+                    icon={faPlusCircle}
+                    style={{ color: 'blue', marginLeft: '10px' }}
+                    onClick={()=> {this.addToUserList(item)}}
+                    />
+                  <FontAwesomeIcon
+                    icon={faTrash}
+                    style={{ color: 'red', marginLeft: '10px' }}
+                    onClick={() => this.removeFromList(item)}
+                    />
+                </div>
+              </Col>
               <Card.Text>
                 Entrega: {item.deliveryTime.formatted12}<br/>
                 Duração: {item.executionTime}h
