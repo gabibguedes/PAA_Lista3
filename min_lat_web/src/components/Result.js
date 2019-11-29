@@ -19,9 +19,10 @@ export default class Time extends React.Component {
                                 </div>
                             </Col>
                             <Card.Text>
-                                Entrega: {item.deliveryTime.formatted12}<br />
+                                Deadline: {item.deliveryTime.formatted12}<br/>
                                 Duração: {item.executionTime}h <br />
-                                <b style={{ color: 'red' }}>Atraso: {item.lateness}h</b>
+                                Entrega: {item.realDeliveryTime.formatted12}<br />
+                                <b style={{ color: 'red' }}>Atraso: {item.lateness}</b>
                             </Card.Text>
                         </Card>
                     ))}
